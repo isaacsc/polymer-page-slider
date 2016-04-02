@@ -17,11 +17,13 @@
       data="{{items}}"></firebase-collection>
   
     <paper-toast id="errorToast"></paper-toast>
+    <paper-spinner id="spinner" alt="Waiting to firebase" active></paper-spinner>
     <neon-animated-pages id="neonAnimatedPages" attr-for-selected="id" selected="{{pageSelected}}" entry-animation="[[animationEntry]]" exit-animation="[[animationExit]]">
       <template is="dom-repeat" items=[[items]]>
         <neon-animatable id="[[item.slug]]">[[item.name]]</neon-animatable>
       </template>
     </neon-animated-pages>
+    
     <atom-navigation-bullets id="atomNavigationBullets" selected="{{pageSelected}}" bullets="[[items]]"></atom-navigation-bullets>  
 
   </template>
@@ -35,9 +37,6 @@
       properties: {
         items: {
           type: Array,
-          value: function() {
-            return [];
-          },
           observer: '_itemsChange'
         },
         pageSelected: {
@@ -85,7 +84,7 @@
       },
 
       _bulletClicked: function () {
-        
+
       },
 
       _changePage: function() {        
@@ -93,11 +92,11 @@
       },
 
       _itemsChange: function() {
-        console.log('_itemsChange');
+        console.log(this.items, this.items !== []);
       },
 
       _scrollHandler: function(e){
-        if(this.scrollReady && Math.abs(e.deltaY) > 10){
+        if(this.scrollReady && Math.abs(e.deltaY) > 10) {
           this.set('scrollReady', false);
           if (e.deltaY > 0) {
             this.next();

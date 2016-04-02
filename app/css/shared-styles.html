@@ -2,6 +2,28 @@
 <dom-module id="shared-styles">
   <template>
     <style>
+      atom-navigation-bullets{
+        --navigation-bullets-position: {
+          left: 40px;
+        };
+        --navigation-bullets: {
+          background: transparent;
+        }
+        --navigation-bullets-after: {   
+          background: #fff;
+        }
+        --navigation-bullets-active: {
+          background: transparent;
+          border: 2px solid #fff;
+        }
+        --navigation-bullets-after-active: {
+           background: transparent;
+        }
+        --navigation-bullets-label: {
+          color: var(--color-text);
+        }
+      };
+
       neon-animated-pages {
         width: 100%;
       };
@@ -29,28 +51,16 @@
       neon-animatable:nth-child(5) {
         background: var(--paper-purple-500);
       }
-      
-      atom-navigation-bullets{
-        --navigation-bullets-position: {
-          left: 40px;
-        };
-        --navigation-bullets: {
-          background: transparent;
-        }
-        --navigation-bullets-after: {   
-          background: #fff;
-        }
-        --navigation-bullets-active: {
-          background: transparent;
-          border: 2px solid #fff;
-        }
-        --navigation-bullets-after-active: {
-           background: transparent;
-        }
-        --navigation-bullets-label: {
-          color: var(--color-text);
-        }
-      };
+
+      paper-spinner{
+        height: 100px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: opacity .3s;
+        width: 100px;
+      }
     </style>
   </template>
 </dom-module>
