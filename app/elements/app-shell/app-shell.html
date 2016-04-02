@@ -1,0 +1,174 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="app-shell">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host{
+        min-height: 100vh;
+        display: flex;
+        overflow: hidden;
+        position: relative;
+      };
+      neon-animated-pages {
+        width: 100%;
+      };
+
+      neon-animatable {
+        color: #fff;
+        @apply(--layout-fit );
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        @apply(--paper-font-display4);
+      }
+
+      neon-animatable:nth-child(1) {
+        background: var(--paper-red-500);
+      }
+      neon-animatable:nth-child(2) {
+        background: var(--paper-blue-500);
+      }
+      neon-animatable:nth-child(3) {
+        background: var(--paper-orange-500);
+      }
+      neon-animatable:nth-child(4) {
+        background: var(--paper-green-500);
+      }
+      neon-animatable:nth-child(5) {
+        background: var(--paper-purple-500);
+      }
+      :host atom-navigation-bullets{
+        --navigation-bullets-position: {
+          left: 40px;
+        };
+        --navigation-bullets: {
+          background: transparent;
+        }
+        --navigation-bullets-after: {   
+          background: #fff;
+        }
+        --navigation-bullets-active: {
+          background: transparent;
+          border: 2px solid #fff;
+        }
+        --navigation-bullets-after-active: {
+           background: transparent;
+        }
+        --navigation-bullets-label: {
+          color: #fff;
+        }
+      };
+
+    </style>
+    <firebase-collection
+      location="https://kairos-challenge.firebaseio.com/pages"
+      data="{{items}}"></firebase-collection>
+  
+    <paper-toast id="errorToast"></paper-toast>
+
+    <neon-animated-pages id="neonAnimatedPages" attr-for-selected="id" selected="{{pageSelected}}" entry-animation="[[animationEntry]]" exit-animation="[[animationExit]]">
+      <template is="dom-repeat" items=[[items]]>
+        <neon-animatable id="[[item.slug]]">[[item.name]]</neon-animatable>
+      </template>
+    </neon-animated-pages>
+
+    <atom-navigation-bullets id="atomNavigationBullets" selected="{{pageSelected}}" bullets="[[items]]"></atom-navigation-bullets>  
+
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'app-shell',
+
+      properties: {
+        items: {
+          type: Array,
+          value: function() {
+            return [];
+          },
+          observer: '_itemsChange'
+        },
+        pageSelected: {
+          type: String,
+          value: '',
+          observer: '_changePage'
+        },
+        animationEntry: {
+          type: String,
+          value: 'slide-from-bottom-animation'
+        },
+        animationExit: {
+          type: String,
+          value: 'slide-up-animation'
+        },
+        scrollReady: {
+          type: Boolean,
+          value: true,
+          observer: '_scrollReadyChanged'
+        }
+      },
+
+      listeners:{
+        'navigation-bullets-change-selected' : '_bulletClicked'
+      },
+
+      attached: function() {
+        
+      },
+
+      next: function() {
+        this.set('animationEntry', 'slide-from-bottom-animation');
+        this.set('animationExit', 'slide-up-animation');
+        this.$.neonAnimatedPages.selectNext();
+      },
+
+      previous: function(){
+        this.set('animationEntry', 'slide-from-top-animation');
+        this.set('animationExit', 'slide-down-animation');
+        this.$.neonAnimatedPages.selectPrevious();
+      },
+
+      ready: function () {
+        
+      },
+
+      _bulletClicked: function () {
+        console.log('_bulletClicked');
+      },
+
+      _changePage: function() {        
+        page('/' + (this.pageSelected === 'page1' ? '' : this.pageSelected));
+      },
+
+      _itemsChange: function() {
+        console.log('_itemsChange');
+      },
+
+      _scrollHandler: function(e){
+        if(this.scrollReady && Math.abs(e.deltaY) > 10){
+          this.set('scrollReady', false);
+          if (e.deltaY > 0) {
+            this.next();
+          } else {
+            this.previous();
+          };
+        }
+        this.debounce('wheel', function(){
+          this.set('scrollReady', true);
+        }, 1000);
+      },
+
+      _scrollReadyChanged: function(){
+        if(this.scrollReady) {
+          this.listen(this, 'wheel', '_scrollHandler');
+        } else {
+          this.unlisten(this, 'wheel', '_scrollHandler');
+        }
+      }
+
+    });
+  })();
+  </script>
+</dom-module>

@@ -1,0 +1,135 @@
+<style is="custom-style">
+
+:root {
+	--cells-blue-primary: #224fbd;
+	--cells-blue-medium: #95abe0;
+	--cells-blue-light: #cad5ef;
+	--cells-violet-primary: #673fa4;
+	--cells-violet-medium: #b6a3d4;
+	--cells-violet-light: #dbd1e9;
+	--cells-magenta-primary: #ff007f;
+	--cells-magenta-medium: #ff85c2;
+	--cells-magenta-light: #ffc230;
+	--cells-grey-prymary: #333;
+	--cells-grey-medium: #474747;
+	--cells-grey-light: #79798f;
+	--cells-white-primary: #fafaff;
+
+	--cells-gradient-blue-transparent: linear-gradient(to bottom, rgba(34,79,189,1) 0%, rgba(255,255,255,0.52) 100%);
+	--cells-gradient-white-transparent: linear-gradient(to bottom, rgba(250,250,255,1) 30%, rgba(255,255,255,0) 100%);
+	--cells-gradient-blue-magenta: linear-gradient(45deg, #224fbd 0%, #ff007f 100%);
+	--cells-gradient-blue-green : linear-gradient(50deg, #224fbd 0%, #86c82c 100%);
+
+	--text-general: {
+		color: var(--cells-grey-medium);
+		font-family: 'Lato', sans-serif;
+		font-size: 1em;
+		font-weight: 300;
+		line-height: 24px;
+	};
+
+	--text-title: {
+		color: var(--cells-blue-primary);
+	    font-size: 4em;
+	    font-weight: 100;
+	    line-height: 72px;
+	    text-transform: uppercase;
+	};
+
+	--text-title-second: {
+		color: var(--cells-blue-primary);
+	    font-size: 1.5em;
+	    font-weight: 300;
+	    line-height: 32px;
+	    text-transform: uppercase;
+	};
+
+	--text-title-third: {
+		color: var(--cells-blue-primary);
+		font-size: 1em;
+	    line-height: 24px;
+	    font-weight: 400;
+	    text-transform: uppercase;
+	};
+
+	--text-subtitle: {
+		color: var(--cells-blue-primary);
+        font-size: 2em;
+        font-weight: 300;
+        line-height: 40px;
+	};
+
+	--text-subtitle-second: {
+		color: var(--cells-grey-medium);
+        font-size: 1.5em;
+        font-weight: 300;
+        line-height: 32px;
+	};
+
+	--text-highlight: {
+		color: var(--cells-magenta-primary);
+	    font-size: 2em;
+	    font-weight: 300;
+	    font-style: italic;
+	    line-height: 48px;
+	};
+
+	--text-explain: {
+		color: var(--cells-grey-light);
+		font-size: 1em;
+		font-style: italic;
+		line-height: 24px;
+		text-align:center;
+		text-transform: capitalize;
+	};
+
+	--img-responsive: {
+		width: 100%;
+		height: auto;
+	}
+}
+
+
+
+  /* Material Design Adaptive Breakpoints */
+  /*
+    Below you'll find CSS media queries based on the breakpoint guidance
+    published by the Material Design team. You can choose to use, customise
+    or emove these breakpoints based on your needs.
+
+    http://www.google.com/design/spec/layout/adaptive-ui.html#adaptive-ui-breakpoints
+   */
+
+  /* mobile-small */
+  @media all and (min-width: 0) and (max-width: 360px) and (orientation: portrait) { }
+  /* mobile-large */
+  @media all and (min-width: 361px) and (orientation: portrait) { }
+  /* mobile-small-landscape */
+  @media all and (min-width: 0) and (max-width: 480px) and (orientation: landscape) { }
+  /* mobile-large-landscape */
+  @media all and (min-width: 481px) and (orientation: landscape) { }
+  /* tablet-small-landscape */
+  @media all and (min-width: 600px) and (max-width: 960px) and (orientation: landscape) { }
+  /* tablet-large-landscape */
+  @media all and (min-width: 961px) and (orientation: landscape) { }
+  /* tablet-small */
+  @media all and (min-width: 600px) and (orientation: portrait) { }
+  /* tablet-large */
+  @media all and (min-width: 601px) and (max-width: 840px) and (orientation : portrait) { }
+  /* desktop-x-small-landscape */
+  @media all and (min-width: 0) and (max-width: 480px) and (orientation: landscape) { }
+  /* desktop-x-small */
+  @media all and (min-width: 0) and (max-width: 480px) and (max-aspect-ratio: 4/3) { }
+  /* desktop-small-landscape */
+  @media all and (min-width: 481px) and (max-width: 840px) and (orientation: landscape) { }
+  /* desktop-small */
+  @media all and (min-width: 481px) and (max-width: 840px) and (max-aspect-ratio: 4/3) { }
+  /* desktop-medium-landscape */
+  @media all and (min-width: 841px) and (max-width: 1280px) and (orientation: landscape) { }
+  /* desktop-medium */
+  @media all and (min-width: 841px) and (max-width: 1280px) and (max-aspect-ratio: 4/3) { }
+  /* desktop-large */
+  @media all and (min-width: 1281px) and (max-width: 1600px) { }
+  /* desktop-xlarge */
+  @media all and (min-width: 1601px) and (max-width: 1920px) { }
+</style>

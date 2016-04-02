@@ -1,0 +1,19 @@
+{
+  "name": "Cell-site",
+  "description": "",
+  "homepage": "",
+  "keywords": [],
+  "author": "",
+  "private": true,
+  "dependencies": {
+    "iron-elements": "PolymerElements/iron-elements#^1.0.0",
+    "paper-elements": "PolymerElements/paper-elements#^1.0.1",
+    "firebase-element": "PolymerElements/firebase-element#^1.0.0",
+    "page": "https://github.com/jorgecasar/page.js.git#unify-default-url-generation",
+    "neon-animation": "PolymerElements/neon-animation#~1.1.0",
+    "atom-navigation-bullets": "https://descinet.bbva.es/stash/scm/ca/atom-navigation-bullets.git"
+  },
+  "devDependencies": {
+    "web-component-tester": "^3.0.0"
+  }
+}
