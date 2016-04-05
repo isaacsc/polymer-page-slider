@@ -24,7 +24,7 @@
       </template>
     </neon-animated-pages>
     
-    <atom-navigation-bullets id="atomNavigationBullets" selected="{{pageSelected}}" bullets="[[items]]"></atom-navigation-bullets>  
+    <atom-navigation-bullets id="atomNavigationBullets" selected="{{pageSelected}}" direction={{direction}} bullets="[[items]]"></atom-navigation-bullets>  
 
   </template>
   <script>
@@ -37,7 +37,9 @@
       properties: {
         items: {
           type: Array,
-          observer: '_itemsChange'
+          value: function() {
+            return [];
+          }
         },
         pageSelected: {
           type: String,
@@ -52,6 +54,11 @@
           type: String,
           value: 'slide-up-animation'
         },
+        direction: {
+          type: String,
+          value: 'go',
+          observer: '_navigationDir'
+        },
         scrollReady: {
           type: Boolean,
           value: true,
@@ -59,49 +66,33 @@
         }
       },
 
-      listeners:{
-        'navigation-bullets-change-selected' : '_bulletClicked'
-      },
-
-      attached: function() {
-        
-      },
-
-      next: function() {
+      _animationNext: function() {
         this.set('animationEntry', 'slide-from-bottom-animation');
         this.set('animationExit', 'slide-up-animation');
-        this.$.neonAnimatedPages.selectNext();
       },
 
-      previous: function(){
+      _animationPrevious: function(){
         this.set('animationEntry', 'slide-from-top-animation');
         this.set('animationExit', 'slide-down-animation');
-        this.$.neonAnimatedPages.selectPrevious();
-      },
-
-      ready: function () {
-        
-      },
-
-      _bulletClicked: function () {
-
       },
 
       _changePage: function() {        
         page('/' + (this.pageSelected === 'page1' ? '' : this.pageSelected));
       },
 
-      _itemsChange: function() {
-        console.log(this.items, this.items !== []);
+      _navigationDir: function() {
+        (this.direction === 'go') ? this._animationNext() : this._animationPrevious();
       },
 
       _scrollHandler: function(e){
-        if(this.scrollReady && Math.abs(e.deltaY) > 10) {
+        if(this.scrollReady && Math.abs(e.deltaY) > 10){
           this.set('scrollReady', false);
           if (e.deltaY > 0) {
-            this.next();
+            this._animationNext();
+            this.$.neonAnimatedPages.selectNext();
           } else {
-            this.previous();
+            this._animationPrevious();
+            this.$.neonAnimatedPages.selectPrevious();
           };
         }
         this.debounce('wheel', function(){
