@@ -32,12 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       next();
     });
 
-    page('/:page', function(data){
-      console.log('param', data.params.page);
-      app.route = data.params.page;
-      //page(data.params.page);
-
-    });
+    
 
     // page('/', function() {
     //   console.log('vacio cliente');
@@ -49,11 +44,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       app.route = 'page-1';
     });
 
+    page('/:page', function(data){
+      app.route = data.params.page;
+      //page(data.params.page);
+
+    });
+
     
     // 404
-    // page('*', function() {
-    //   page.redirect(app.baseUrl);
-    // });
+    page('*', function() {
+      page.redirect(app.baseUrl);
+    });
 
     // add #! before urls
     page({

@@ -12,7 +12,7 @@
       };
 
     </style>
-    <firebase-collection
+    <firebase-collection id="firebase"
       location="https://kairos-challenge.firebaseio.com/pages"
       data="{{items}}"></firebase-collection>
   
@@ -20,7 +20,7 @@
     <paper-spinner id="spinner" alt="Waiting to firebase" active></paper-spinner>
     <neon-animated-pages id="neonAnimatedPages" attr-for-selected="id" selected="{{pageSelected}}" entry-animation="[[animationEntry]]" exit-animation="[[animationExit]]">
       <template is="dom-repeat" items=[[items]]>
-        <neon-animatable id="[[item.slug]]">[[item.name]]</neon-animatable>
+        <neon-animatable id="[[item.slug]]" inner-h-t-m-l="[[item.content]]"></neon-animatable>
       </template>
     </neon-animated-pages>
     
@@ -66,6 +66,12 @@
         }
       },
 
+      attached: function() {
+        this.$.firebase.addEventListener('firebase-value', function() {
+          this.$.spinner.style.display = 'none';
+        }.bind(this));
+      },
+
       _animationNext: function() {
         this.set('animationEntry', 'slide-from-bottom-animation');
         this.set('animationExit', 'slide-up-animation');
@@ -77,8 +83,6 @@
       },
 
       _changePage: function() {        
-        console.log('_changePage',this.pageSelected);
-        //page('/' + (this.pageSelected === 'page-1' ? '' : this.pageSelected));
         history.pushState({}, null, this.pageSelected);
       },
 

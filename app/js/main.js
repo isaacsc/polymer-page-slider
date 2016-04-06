@@ -2,7 +2,7 @@
 	'use strict';
 
 	var app = document.querySelector('#app');
- 	//app.baseUrl = '/';
+ 	app.baseUrl = '/';
  	
   	if (window.location.port === '') {  // if production
     	// Uncomment app.baseURL below and
