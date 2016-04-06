@@ -78,7 +78,8 @@
 
       _changePage: function() {        
         console.log('_changePage',this.pageSelected);
-        page('/' + (this.pageSelected === 'page-1' ? '' : this.pageSelected));
+        //page('/' + (this.pageSelected === 'page-1' ? '' : this.pageSelected));
+        history.pushState({}, null, this.pageSelected);
       },
 
       _navigationDir: function() {
