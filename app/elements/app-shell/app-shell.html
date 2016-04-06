@@ -77,7 +77,8 @@
       },
 
       _changePage: function() {        
-        page('/' + (this.pageSelected === 'page1' ? '' : this.pageSelected));
+        console.log('_changePage',this.pageSelected);
+        page('/' + (this.pageSelected === 'page-1' ? '' : this.pageSelected));
       },
 
       _navigationDir: function() {
