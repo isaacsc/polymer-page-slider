@@ -14,17 +14,29 @@
     </style>
     <firebase-collection id="firebase"
       location="https://kairos-challenge.firebaseio.com/pages"
-      data="{{items}}"></firebase-collection>
-  
-    <paper-toast id="errorToast"></paper-toast>
+      data="{{items}}"
+      on-firebase-value="_hideSpinner"
+    ></firebase-collection>
+ 
     <paper-spinner id="spinner" alt="Waiting to firebase" active></paper-spinner>
-    <neon-animated-pages id="neonAnimatedPages" attr-for-selected="id" selected="{{pageSelected}}" entry-animation="[[animationEntry]]" exit-animation="[[animationExit]]">
+
+    <neon-animated-pages id="neonAnimatedPages" 
+      attr-for-selected="id" 
+      selected="{{pageSelected}}" 
+      entry-animation="[[animationEntry]]" 
+      exit-animation="[[animationExit]]">
       <template is="dom-repeat" items=[[items]]>
-        <neon-animatable id="[[item.slug]]" inner-h-t-m-l="[[item.content]]"></neon-animatable>
+        <neon-animatable id="[[item.slug]]">
+          <span id="[[item.slug]]-content" inner-h-t-m-l="[[item.content]]"></span>
+        </neon-animatable>
       </template>
     </neon-animated-pages>
     
-    <atom-navigation-bullets id="atomNavigationBullets" selected="{{pageSelected}}" direction={{direction}} bullets="[[items]]"></atom-navigation-bullets>  
+    <atom-navigation-bullets id="atomNavigationBullets" 
+      selected="{{pageSelected}}" 
+      direction={{direction}} 
+      bullets="[[items]]">
+    </atom-navigation-bullets>  
 
   </template>
   <script>
@@ -35,17 +47,6 @@
       is: 'app-shell',
 
       properties: {
-        items: {
-          type: Array,
-          value: function() {
-            return [];
-          }
-        },
-        pageSelected: {
-          type: String,
-          value: '',
-          observer: '_changePage'
-        },
         animationEntry: {
           type: String,
           value: 'slide-from-bottom-animation'
@@ -59,17 +60,22 @@
           value: 'go',
           observer: '_navigationDir'
         },
+        items: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+        pageSelected: {
+          type: String,
+          value: '',
+          observer: '_changePage'
+        },
         scrollReady: {
           type: Boolean,
           value: true,
           observer: '_scrollReadyChanged'
         }
-      },
-
-      attached: function() {
-        this.$.firebase.addEventListener('firebase-value', function() {
-          this.$.spinner.style.display = 'none';
-        }.bind(this));
       },
 
       _animationNext: function() {
@@ -84,6 +90,10 @@
 
       _changePage: function() {        
         history.pushState({}, null, this.pageSelected);
+      },
+
+      _hideSpinner: function() {
+        this.$.spinner.style.display = 'none';
       },
 
       _navigationDir: function() {
